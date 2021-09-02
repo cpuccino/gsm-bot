@@ -1,0 +1,13 @@
+{
+  "name": "gsm-bot",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.7.10",
+    "ts-node": "^10.2.1"
+  },
+  "dependencies": {
+    "@typeit/discord": "^4.0.10",
+    "discord.js": "^13.1.0"
+  }
+}
