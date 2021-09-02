@@ -1,10 +1,10 @@
 import path from 'path';
 
-import { CommandMessage, CommandNotFound, Discord } from '@typeit/discord';
+import { CommandMessage, CommandNotFound, Discord, Rule } from '@typeit/discord';
 
-@Discord('>>', {
+@Discord(Rule().startWith('> gsm').space(), {
   import: [
-    path.join(__dirname, 'commands', '*.ts'),
+    path.join(__dirname, 'commands', '*.ts')
   ]
 })
 export abstract class DiscordApp {
