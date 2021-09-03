@@ -10,5 +10,10 @@ if (!process.env.GSM_SERVER_ID) {
   throw 'GSM_SERVER_ID env required';
 }
 
+if (!process.env.GSM_SERVER_MONITORING_PORT) {
+  throw 'GSM_SERVER_MONITORING_PORT required';
+}
+
 export const GSM_BOT_TOKEN = process.env.GSM_BOT_TOKEN;
 export const GSM_SERVER_ID = process.env.GSM_SERVER_ID;
+export const GSM_SERVER_MONITORING_PORT = process.env.GSM_SERVER_MONITORING_PORT;

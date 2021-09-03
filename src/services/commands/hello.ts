@@ -4,6 +4,6 @@ export abstract class Hello {
   @Command()
   @Description('Introducing myself')
   async hello(command: CommandMessage) {
-    command.reply('Hello World');
+    command.channel.send('Hello World');
   }
 }
