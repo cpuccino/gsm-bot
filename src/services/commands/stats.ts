@@ -7,36 +7,44 @@ import { skipBot } from '../guards/bot';
 import table from 'text-table';
 import { CpuLoad, DiskUsage, MemoryUsage, SysInfo } from 'server-usage';
 
-function generateCPULoadTable(cpuLoad: CpuLoad[]) {
+function generateCPULoadTable(cpuLoad: CpuLoad[]): string {
   const header = ['Process', 'Usage', 'Idle'];
-  const columns = cpuLoad.map(({ name, usage, idle }: { name: string; usage: number; idle: number }) =>
-    [name !== 'all' ? `core#${name}` : name, `${usage}%`, `${idle}%`]
+  const columns = cpuLoad.map(
+    ({ name, usage, idle }: { name: string; usage: number; idle: number }) => [
+      name !== 'all' ? `core#${name}` : name,
+      `${usage}%`,
+      `${idle}%`
+    ]
   );
 
-  return table([ header, ...columns ]);
+  return table([header, ...columns]);
 }
 
-function generateMemoryUsageTable(memoryUsage: MemoryUsage) {
+function generateMemoryUsageTable(memoryUsage: MemoryUsage): string {
   const header = ['Total', 'Free', 'Used'];
   const columns = [[memoryUsage.total, memoryUsage.free, memoryUsage.used]];
 
-  return table([ header, ...columns ]);
+  return table([header, ...columns]);
 }
 
-function generateDiskUsageTable(diskUsage: DiskUsage[]) {
-  const header = ['Partition','Type', 'Size', 'Available', 'Used'];
-  const columns = diskUsage.map(disk =>
-    [disk.partition, disk.type, disk.size, disk.available, disk.used]
-  );
+function generateDiskUsageTable(diskUsage: DiskUsage[]): string {
+  const header = ['Partition', 'Type', 'Size', 'Available', 'Used'];
+  const columns = diskUsage.map(disk => [
+    disk.partition,
+    disk.type,
+    disk.size,
+    disk.available,
+    disk.used
+  ]);
 
-  return table([ header, ...columns ]);
+  return table([header, ...columns]);
 }
 
 export abstract class Stats {
   @Command()
   @Guard(skipBot)
   @Description('Fetch game server usage')
-  async stats(command: CommandMessage) {
+  async stats(command: CommandMessage): Promise<void> {
     try {
       const instances = await info();
 
@@ -57,16 +65,19 @@ export abstract class Stats {
         httpsAgent: new https.Agent({ rejectUnauthorized: false })
       });
 
-      const { cpuLoad, release, arch, diskUsage, memoryUsage } = data as SysInfo;
+      const { cpuLoad, release, arch, sysname, diskUsage, memoryUsage } = data as SysInfo;
 
       const cpuLoadTable = generateCPULoadTable(cpuLoad);
       const memoryUsageTable = generateMemoryUsageTable(memoryUsage);
       const diskUsageTable = generateDiskUsageTable(diskUsage);
 
-      command.channel.send(`\`\`\`Arch: ${arch}\nKernel: ${release}\`\`\``, { allowedMentions: undefined, disableMentions: 'everyone' });
-      command.channel.send(`\`\`\`${cpuLoadTable.toString()}\`\`\``);
-      command.channel.send(`\`\`\`${memoryUsageTable.toString()}\`\`\``);
-      command.channel.send(`\`\`\`${diskUsageTable.toString()}\`\`\``);
+      command.channel.send(`\`\`\`Sysname: ${sysname}\nArch: ${arch}\nKernel: ${release}\`\`\``, {
+        allowedMentions: undefined,
+        disableMentions: 'everyone'
+      });
+      command.channel.send(`\`\`\`${cpuLoadTable}\`\`\``);
+      command.channel.send(`\`\`\`${memoryUsageTable}\`\`\``);
+      command.channel.send(`\`\`\`${diskUsageTable}\`\`\``);
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
       command.channel.send(`Failed to fetch game server status`);

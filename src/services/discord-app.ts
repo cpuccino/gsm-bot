@@ -7,7 +7,7 @@ import { CommandMessage, CommandNotFound, Discord, Rule } from '@typeit/discord'
 })
 export abstract class DiscordApp {
   @CommandNotFound()
-  commandNotFound(command: CommandMessage) {
+  commandNotFound(command: CommandMessage): void {
     command.channel.send('Invalid command');
   }
 }

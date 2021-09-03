@@ -8,7 +8,7 @@ export class Server {
     return this.client;
   }
 
-  static start() {
+  static start(): void {
     this.client = new Client();
     this.client.login(GSM_BOT_TOKEN, `${__dirname}/services/*.[jt]s`);
     console.log(Client.getCommands());

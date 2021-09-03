@@ -7,7 +7,7 @@ export abstract class Server {
   @Guard(skipBot)
   @Description('Start game server')
   @Infos({ admin: true })
-  async start(command: CommandMessage) {
+  async start(command: CommandMessage): Promise<void> {
     try {
       const instances = await start();
 
@@ -33,7 +33,7 @@ export abstract class Server {
   @Guard(skipBot)
   @Description('Stop game server')
   @Infos({ admin: true })
-  async stop(command: CommandMessage) {
+  async stop(command: CommandMessage): Promise<void> {
     try {
       const instances = await stop();
 
@@ -58,7 +58,7 @@ export abstract class Server {
   @Command()
   @Guard(skipBot)
   @Description('Fetch game server status')
-  async status(command: CommandMessage) {
+  async status(command: CommandMessage): Promise<void> {
     try {
       const instances = await info();
 

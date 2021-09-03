@@ -1508,7 +1508,7 @@ serve-static@1.14.1:
 
 "server-usage@github:cpuccino/server-usage.git#master":
   version "1.0.0"
-  resolved "https://codeload.github.com/cpuccino/server-usage/tar.gz/a4a55c9f7ae087c819a80c55500435fb7e6d9562"
+  resolved "https://codeload.github.com/cpuccino/server-usage/tar.gz/0c66e3f784f2a2c6246e98cadf0a73513c3ed312"
   dependencies:
     express "^4.17.1"
 
