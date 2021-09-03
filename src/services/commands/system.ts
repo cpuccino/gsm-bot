@@ -40,11 +40,11 @@ function generateDiskUsageTable(diskUsage: DiskUsage[]): string {
   return table([header, ...columns]);
 }
 
-export abstract class Stats {
+export abstract class System {
   @Command()
   @Guard(skipBot)
   @Description('Fetch game server usage')
-  async stats(command: CommandMessage): Promise<void> {
+  async usage(command: CommandMessage): Promise<void> {
     try {
       const instances = await info();
 
@@ -71,10 +71,7 @@ export abstract class Stats {
       const memoryUsageTable = generateMemoryUsageTable(memoryUsage);
       const diskUsageTable = generateDiskUsageTable(diskUsage);
 
-      command.channel.send(`\`\`\`Sysname: ${sysname}\nArch: ${arch}\nKernel: ${release}\`\`\``, {
-        allowedMentions: undefined,
-        disableMentions: 'everyone'
-      });
+      command.channel.send(`\`\`\`Sysname: ${sysname}\nArch: ${arch}\nKernel: ${release}\`\`\``);
       command.channel.send(`\`\`\`${cpuLoadTable}\`\`\``);
       command.channel.send(`\`\`\`${memoryUsageTable}\`\`\``);
       command.channel.send(`\`\`\`${diskUsageTable}\`\`\``);
