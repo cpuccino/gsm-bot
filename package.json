@@ -18,6 +18,7 @@
     "@types/aws-lambda": "^8.10.83",
     "@types/express": "^4.17.13",
     "@types/node": "^16.7.10",
+    "@types/node-cron": "^2.0.4",
     "@types/text-table": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
@@ -38,6 +39,7 @@
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "node-cron": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "text-table": "^0.2.0"
   }

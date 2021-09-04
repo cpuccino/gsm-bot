@@ -18,9 +18,9 @@ export abstract class Server {
       const { InstanceId, CurrentState, PreviousState } = instance;
 
       command.channel.send(
-        `\`\`\`# Starting game server\ninstance_id: ${InstanceId}\ncurrent_state: ${
+        `\`\`\`# Starting game server\nInstance ID: ${InstanceId}\nCurrent State: ${
           CurrentState?.Name || 'N/A'
-        }\nprevious_state: ${PreviousState?.Name || 'N/A'}\`\`\``
+        }\nPrevious State: ${PreviousState?.Name || 'N/A'}\`\`\``
       );
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
@@ -43,9 +43,9 @@ export abstract class Server {
       const { InstanceId, CurrentState, PreviousState } = instance;
 
       command.channel.send(
-        `\`\`\`# Stopping game server\ninstance_id: ${InstanceId}\ncurrent_state: ${
+        `\`\`\`# Stopping game server\nInstance ID: ${InstanceId}\nCurrent State: ${
           CurrentState?.Name || 'N/A'
-        }\nprevious_state: ${PreviousState?.Name || 'N/A'}\`\`\``
+        }\nPrevious State: ${PreviousState?.Name || 'N/A'}\`\`\``
       );
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
@@ -68,9 +68,9 @@ export abstract class Server {
       const { InstanceId, PublicIpAddress, State } = instance;
 
       command.channel.send(
-        `\`\`\`# Fetching game server info\ninstance id: ${InstanceId}\nip address: ${
+        `\`\`\`# Fetching game server info\nInstance ID: ${InstanceId}\nIP Address: ${
           PublicIpAddress || 'N/A'
-        }\nstate: ${State?.Name}\n\`\`\``
+        }\nState: ${State?.Name}\n\`\`\``
       );
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));

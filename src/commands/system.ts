@@ -10,6 +10,7 @@ import {
   generateDiskUsageTable,
   generateMemoryUsageTable
 } from '../utilities/server-usage-table';
+import { generateUptimeTable } from '../utilities/uptime-table';
 
 export abstract class System {
   @Command()
@@ -24,27 +25,29 @@ export abstract class System {
         return;
       }
 
-      const { PublicIpAddress: publicIpAddress, State: state } = instance;
+      const { PublicIpAddress, State } = instance;
 
-      if (state?.Name !== 'running') {
+      if (State?.Name !== 'running') {
         command.channel.send(`Game server is not running`);
         return;
       }
 
-      const { data } = await axios(`http://${publicIpAddress}:${GSM_SERVER_MONITORING_PORT}/`, {
+      const { data } = await axios(`http://${PublicIpAddress}:${GSM_SERVER_MONITORING_PORT}/`, {
         httpsAgent: new https.Agent({ rejectUnauthorized: false })
       });
 
-      const { cpuLoad, release, arch, sysname, diskUsage, memoryUsage } = data as SysInfo;
+      const { cpuLoad, release, arch, sysname, diskUsage, memoryUsage, uptime } = data as SysInfo;
 
       const cpuLoadTable = generateCPULoadTable(cpuLoad);
       const memoryUsageTable = generateMemoryUsageTable(memoryUsage);
       const diskUsageTable = generateDiskUsageTable(diskUsage);
+      const uptimeTable = generateUptimeTable(uptime);
 
       command.channel.send(`\`\`\`Sysname: ${sysname}\nArch: ${arch}\nKernel: ${release}\`\`\``);
       command.channel.send(`\`\`\`${cpuLoadTable}\`\`\``);
       command.channel.send(`\`\`\`${memoryUsageTable}\`\`\``);
       command.channel.send(`\`\`\`${diskUsageTable}\`\`\``);
+      command.channel.send(`\`\`\`${uptimeTable}\`\`\``);
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
       command.channel.send(`Failed to fetch game server status`);
