@@ -17,3 +17,4 @@ if (!process.env.GSM_SERVER_MONITORING_PORT) {
 export const GSM_BOT_TOKEN = process.env.GSM_BOT_TOKEN;
 export const GSM_SERVER_ID = process.env.GSM_SERVER_ID;
 export const GSM_SERVER_MONITORING_PORT = process.env.GSM_SERVER_MONITORING_PORT;
+export const PORT = process.env.PORT || 5679;
