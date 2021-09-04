@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "node dist/src/server.js",
+    "start": "node .build/src/server.js",
     "build": "tsc",
     "dev": "ts-node src/server.ts",
     "sls-start": "serverless offline start --printOutput",
