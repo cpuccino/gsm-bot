@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/handler.ts",
+    "start": "ts-node src/server.ts",
     "format": "prettier --write --ignore-path .gitignore .",
     "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.83",
     "@types/node": "^16.7.10",
     "@types/text-table": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
+    "aws-lambda": "^1.0.6",
     "eslint": "^7.32.0",
     "prettier": "^2.3.2",
     "server-usage": "github:cpuccino/server-usage.git#master",
@@ -20,10 +22,11 @@
   },
   "dependencies": {
     "@typeit/discord": "^4.0.10",
-    "aws-sdk": "^2.982.0",
+    "aws-sdk": "^2.983.0",
     "axios": "^0.21.1",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
+    "reflect-metadata": "^0.1.13",
     "text-table": "^0.2.0"
   }
 }

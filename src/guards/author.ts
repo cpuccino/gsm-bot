@@ -1,6 +1,6 @@
 import { Client, Next, CommandMessage } from '@typeit/discord';
 
-export async function skipBot(
+export async function nonBotAuthor(
   commands: CommandMessage[],
   client: Client,
   next: Next

@@ -1,0 +1,30 @@
+service: gsm-bot
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: v1
+  region: ${opt:region}
+  stackTags:
+    STACK: '${self:service}'
+    REGION: ${self:custom.region}
+
+custom:
+  region: ap-southeast-1
+  serverless-offline:
+    useChildProcesses: true
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  gsm:
+    handler: /src/handlers/gsm.handler
+    memorySize: 256
+    timeout: 30
+    events:
+      - http:
+          method: GET
+          path: '/gsm-app'

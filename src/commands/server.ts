@@ -1,21 +1,21 @@
 import { Command, CommandMessage, Description, Guard, Infos } from '@typeit/discord';
-import { info, start, stop } from '../aws/instance';
-import { skipBot } from '../guards/bot';
+import { instanceInfo, instanceStart, instanceStop } from '../aws/instance';
+import { nonBotAuthor } from '../guards/author';
 
 export abstract class Server {
   @Command()
-  @Guard(skipBot)
+  @Guard(nonBotAuthor)
   @Description('Start game server')
   async start(command: CommandMessage): Promise<void> {
     try {
-      const instances = await start();
+      const instance = await instanceStart();
 
-      if (!instances.StartingInstances?.length) {
+      if (!instance) {
         command.channel.send(`Game server not found`);
         return;
       }
 
-      const { InstanceId, CurrentState, PreviousState } = instances.StartingInstances[0];
+      const { InstanceId, CurrentState, PreviousState } = instance;
 
       command.channel.send(
         `\`\`\`# Starting game server\ninstance_id: ${InstanceId}\ncurrent_state: ${
@@ -29,18 +29,18 @@ export abstract class Server {
   }
 
   @Command()
-  @Guard(skipBot)
+  @Guard(nonBotAuthor)
   @Description('Stop game server')
   async stop(command: CommandMessage): Promise<void> {
     try {
-      const instances = await stop();
+      const instance = await instanceStop();
 
-      if (!instances.StoppingInstances?.length) {
+      if (!instance) {
         command.channel.send(`Game server not found`);
         return;
       }
 
-      const { InstanceId, CurrentState, PreviousState } = instances.StoppingInstances[0];
+      const { InstanceId, CurrentState, PreviousState } = instance;
 
       command.channel.send(
         `\`\`\`# Stopping game server\ninstance_id: ${InstanceId}\ncurrent_state: ${
@@ -54,18 +54,18 @@ export abstract class Server {
   }
 
   @Command()
-  @Guard(skipBot)
+  @Guard(nonBotAuthor)
   @Description('Fetch game server status')
   async status(command: CommandMessage): Promise<void> {
     try {
-      const instances = await info();
+      const instance = await instanceInfo();
 
-      if (!instances.Reservations?.length || !instances.Reservations[0].Instances?.length) {
+      if (!instance) {
         command.channel.send(`Game server not found`);
         return;
       }
 
-      const { InstanceId, PublicIpAddress, State } = instances.Reservations[0]?.Instances[0];
+      const { InstanceId, PublicIpAddress, State } = instance;
 
       command.channel.send(
         `\`\`\`# Fetching game server info\ninstance id: ${InstanceId}\nip address: ${
