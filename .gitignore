@@ -24,6 +24,7 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
+.build/**/*
 
 **/.env*
 !**/.env.example
