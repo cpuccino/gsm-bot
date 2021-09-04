@@ -11,7 +11,7 @@ export async function handler(
   event: APIGatewayEvent,
   context: Context
 ): Promise<AsyncLambdaResponse> {
-  client.login(GSM_BOT_TOKEN, path.join(__dirname, '..', 'discords', '*.ts'));
+  client.login(GSM_BOT_TOKEN, path.join(__dirname, '..', 'discords', '*.[jt]s'));
 
   return {
     statusCode: 200,
