@@ -29,9 +29,9 @@ export async function scheduleServerUsageNotifications(client: Client): Promise<
     await Promise.all(
       channels.map(async c =>
         (c as TextChannel).send(
-          `\`\`\`\nInstance ID: ${InstanceId}\nIP Address: ${
+          `\`\`\`\nInstance ID: ${InstanceId}\nInstance Type: ${InstanceType}\nIP Address: ${
             PublicIpAddress || 'N/A'
-          }\nInstance Type: ${InstanceType}\n${uptimeTable}\`\`\``
+          }\n\n${uptimeTable}\`\`\``
         )
       )
     );
