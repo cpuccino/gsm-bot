@@ -14,7 +14,7 @@ export async function scheduleServerUsageNotifications(client: Client): Promise<
 
     if (!instance) return;
 
-    const { PublicIpAddress, State, InstanceId } = instance;
+    const { PublicIpAddress, State, InstanceId, InstanceType } = instance;
 
     if (State?.Name !== 'running') return;
 
@@ -23,7 +23,7 @@ export async function scheduleServerUsageNotifications(client: Client): Promise<
     });
 
     const { uptime } = data as SysInfo;
-    const uptimeTable = generateUptimeTable(uptime);
+    const uptimeTable = generateUptimeTable(uptime, InstanceType);
 
     const channels = await Promise.all(GSM_CHANNEL_IDS.map(id => client.channels.fetch(id)));
     await Promise.all(
@@ -31,7 +31,7 @@ export async function scheduleServerUsageNotifications(client: Client): Promise<
         (c as TextChannel).send(
           `\`\`\`\nInstance ID: ${InstanceId}\nIP Address: ${
             PublicIpAddress || 'N/A'
-          }\n\n${uptimeTable}\`\`\``
+          }\nInstance Type: ${InstanceType}\n${uptimeTable}\`\`\``
         )
       )
     );

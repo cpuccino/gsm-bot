@@ -25,7 +25,7 @@ export abstract class System {
         return;
       }
 
-      const { PublicIpAddress, State } = instance;
+      const { PublicIpAddress, State, InstanceType } = instance;
 
       if (State?.Name !== 'running') {
         command.channel.send(`Game server is not running`);
@@ -41,7 +41,7 @@ export abstract class System {
       const cpuLoadTable = generateCPULoadTable(cpuLoad);
       const memoryUsageTable = generateMemoryUsageTable(memoryUsage);
       const diskUsageTable = generateDiskUsageTable(diskUsage);
-      const uptimeTable = generateUptimeTable(uptime);
+      const uptimeTable = generateUptimeTable(uptime, InstanceType);
 
       command.channel.send(`\`\`\`Sysname: ${sysname}\nArch: ${arch}\nKernel: ${release}\`\`\``);
       command.channel.send(`\`\`\`${cpuLoadTable}\`\`\``);

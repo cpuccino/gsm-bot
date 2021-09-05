@@ -65,12 +65,12 @@ export abstract class Server {
         return;
       }
 
-      const { InstanceId, PublicIpAddress, State } = instance;
+      const { InstanceId, PublicIpAddress, State, InstanceType } = instance;
 
       command.channel.send(
         `\`\`\`# Fetching game server info\nInstance ID: ${InstanceId}\nIP Address: ${
           PublicIpAddress || 'N/A'
-        }\nState: ${State?.Name}\n\`\`\``
+        }\nInstance Type: ${InstanceType}\nState: ${State?.Name}\n\`\`\``
       );
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
